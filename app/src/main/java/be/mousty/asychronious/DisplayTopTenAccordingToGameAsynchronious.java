@@ -38,7 +38,7 @@ public class DisplayTopTenAccordingToGameAsynchronious extends AsyncTask<String,
         ArrayList<String> score_list = new ArrayList<String>();
         ArrayList<String> pseudo_list = new ArrayList<String>();
         try {
-            URL url = new URL("http://lesqua.16mb.com/projet_android/afficher_top.php?jeu=pokemon");
+            URL url = new URL("http://lesqua.16mb.com/projet_android/afficher_top.php?jeu=" + params[0]);
 
             // instantier l'objet grâce à la méthode "openConnection()"
             HttpURLConnection connection;
@@ -91,7 +91,7 @@ public class DisplayTopTenAccordingToGameAsynchronious extends AsyncTask<String,
 
                                             game_list.add(
                                                     pseudo_list.get(pseudo_list.size() - 1)
-                                                            + "|" +
+                                                            + "~" +
                                                             score_list.get(score_list.size() - 1));
                                         }
                                     }

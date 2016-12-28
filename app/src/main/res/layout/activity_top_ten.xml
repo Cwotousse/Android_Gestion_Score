@@ -66,12 +66,39 @@
         android:layout_above="@+id/tv_error"
         android:layout_below="@+id/btn_display_top">
 
-        <TextView
-            android:text="TOP 10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_title_Table" />
+        <TableRow>
 
+            <TextView
+                android:text="TOP 10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="35px"
+                android:id="@+id/tv_title_Table" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="N°"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="35px"/>
+            <TextView
+                android:text="Pseudo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="150px"/>
+
+            <TextView
+                android:text="Score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="150px" />
+        </TableRow>
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:id="@+id/tableLayoutScore">
+
+        </TableLayout>
     </TableLayout>
 
 </RelativeLayout>

@@ -120,20 +120,13 @@ public class DisplayTopTenActivity extends AppCompatActivity {
             // Display top
             // On retire le "ok"
             res.remove(0);
-            ArrayList<String> pseudo = new ArrayList<String>();
-            ArrayList<String> score  = new ArrayList<String>();
-            // On split l'arraylist reçue
-            for (String str : res){
-                String [] splitStr = str.split("|");
-                pseudo.add(splitStr[0]);
-                score.add(splitStr[1]);
-            }
+
 
             init(res);
         }
     }
 
-    public void init(ArrayList<String> listeClients){
+    /*public void init(ArrayList<String> listeClients){
         try {
             TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
             for (String s : listeClients) {
@@ -149,6 +142,44 @@ public class DisplayTopTenActivity extends AppCompatActivity {
                 row.addView(tv);
                 //}
                 tl.addView(row);
+            }
+        }
+        catch (Exception e) { e.getStackTrace(); }
+    }*/
+
+    public void init(ArrayList<String> top_ten){
+        try {
+            TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutScore);
+            tl.removeAllViews();
+            int i = 0;
+
+            for (String s : top_ten) {
+                String[] parts = s.split("~");
+                String pseudo   = parts[0]; // 004
+                String score    = parts[1]; // 034556
+
+                TableRow newRow = new TableRow(this);
+
+                TextView column1 = new TextView(this);
+                TextView column2 = new TextView(this);
+                TextView column3 = new TextView(this);
+
+                column1.setText(""+ (i +1));
+                column2.setText(pseudo);
+                column3.setText(score);
+
+
+                column1.setPadding(35,0,0,0);
+                column2.setPadding(230,0,0,0);
+                column3.setPadding(185,0,0,0);
+
+                newRow.addView(column1);
+                newRow.addView(column2);
+                newRow.addView(column3);
+
+                tl.addView(newRow, new TableLayout.LayoutParams());
+
+                i++;
             }
         }
         catch (Exception e) { e.getStackTrace(); }
