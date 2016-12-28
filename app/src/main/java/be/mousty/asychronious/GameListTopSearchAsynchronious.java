@@ -11,14 +11,15 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import be.mousty.intent.AddScoreActivity;
+import be.mousty.intent.DisplayTopTenActivity;
 
 //http://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
 // On remplace les XYZ par le type objet nécéssaire
 // X -> Recu en paramètre  du doInBackground
 // Y -> non utilisé, pour le onProgressUpdate
 // Z -> Résultat, placé dans onPostExecute
-public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<String>> {
-    private AddScoreActivity screen = null;
+public class GameListTopSearchAsynchronious extends AsyncTask<Void, Void, ArrayList<String>> {
+    private DisplayTopTenActivity screen = null;
 
     /*@Override protected void onPreExecute() {
         // Prétraitement de l'appel
@@ -28,7 +29,7 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
         // Gestion de l'avancement de la tâche
     }*/
 
-    public GameListAsynchronious(AddScoreActivity s) {
+    public GameListTopSearchAsynchronious(DisplayTopTenActivity s) {
         screen = s;
     }
 

@@ -10,15 +10,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import be.mousty.intent.AddScoreActivity;
+import be.mousty.intent.DisplayTopTenActivity;
 
 //http://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
 // On remplace les XYZ par le type objet nécéssaire
 // X -> Recu en paramètre  du doInBackground
 // Y -> non utilisé, pour le onProgressUpdate
 // Z -> Résultat, placé dans onPostExecute
-public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<String>> {
-    private AddScoreActivity screen = null;
+public class DisplayTopTenAccordingToGameAsynchronious extends AsyncTask<String, Void, ArrayList<String>> {
+    private DisplayTopTenActivity screen = null;
 
     /*@Override protected void onPreExecute() {
         // Prétraitement de l'appel
@@ -28,15 +28,17 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
         // Gestion de l'avancement de la tâche
     }*/
 
-    public GameListAsynchronious(AddScoreActivity s) {
+    public DisplayTopTenAccordingToGameAsynchronious(DisplayTopTenActivity s) {
         screen = s;
     }
 
     @Override
-    protected ArrayList<String> doInBackground(Void... params) {
+    protected ArrayList<String> doInBackground(String... params) {
         ArrayList<String> game_list = new ArrayList<String>();
+        ArrayList<String> score_list = new ArrayList<String>();
+        ArrayList<String> pseudo_list = new ArrayList<String>();
         try {
-            URL url = new URL("http://lesqua.16mb.com/projet_android/lister_jeux.php?");
+            URL url = new URL("http://lesqua.16mb.com/projet_android/afficher_top.php?jeu=pokemon");
 
             // instantier l'objet grâce à la méthode "openConnection()"
             HttpURLConnection connection;
@@ -60,7 +62,6 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
 
                 // Début de la récuperation
                 jsonReader.beginObject();
-
                 if (jsonReader.hasNext()) {
                     String label = jsonReader.nextName();
                     int code = jsonReader.nextInt();
@@ -77,10 +78,22 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
                                     // Pas de nextname pour le nom
                                     // Les éléments dans le tableau
                                     while (jsonReader.hasNext()) {
+
                                         //Tant qu'il y a des éléments on ajoute à la liste
-                                        jsonReader.nextName();
-                                        String el = jsonReader.nextString();
-                                        game_list.add(el);
+                                        String lbl = jsonReader.nextName();
+                                        if(lbl.equals("pseudo")){
+                                            String el = jsonReader.nextString();
+                                            pseudo_list.add(el);
+                                        }
+                                        else if(lbl.equals("score")){
+                                            int el = jsonReader.nextInt();
+                                            score_list.add(el + "");
+
+                                            game_list.add(
+                                                    pseudo_list.get(pseudo_list.size() - 1)
+                                                            + "|" +
+                                                            score_list.get(score_list.size() - 1));
+                                        }
                                     }
                                     // Fermeture des éléments dans le tableau
                                     jsonReader.endObject();
@@ -89,11 +102,11 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
                                 jsonReader.endArray();
                             }
                             break;
-                        case 300:
-                            game_list.add("Aucun jeu trouvé");
+                        case 100:
+                            game_list.add("Nom du jeu non transmis ou vide ");
                             break;
                         case 500:
-                            game_list.add("Session non valide");
+                            game_list.add("Aucun joueur trouvé (la table des scores est vide pour le moment) ");
                             break;
                         case 1000:
                             game_list.add("Problème de connexion à la DB");
@@ -123,6 +136,8 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
             game_list.add(e.getMessage());
         }
 
+        //game_list.clear();
+        //game_list.add(params[0]);
         return game_list;
     }
 
@@ -131,7 +146,7 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
         // Callback
         // Renvoie les informations dans la fonction populate du mainactivity
         try {
-            screen.populate_game_list(result);
+            screen.populate_display_top(result);
         } catch (Exception e) {
             e.getStackTrace();
         }

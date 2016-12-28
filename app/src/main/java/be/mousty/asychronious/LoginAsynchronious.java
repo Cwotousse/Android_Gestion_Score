@@ -25,7 +25,7 @@ import be.mousty.intent.LoginActivity;
 // X -> Recu en paramètre  du doInBackground
 // Y -> non utilisé, pour le onProgressUpdate
 // Z -> Résultat, placé dans onPostExecute
-public class LoginAsynchronious extends AsyncTask<String, Void , String> {
+public class LoginAsynchronious extends AsyncTask<String, Void , ArrayList<String>> {
 
     private LoginActivity screen = null;
 
@@ -41,11 +41,10 @@ public class LoginAsynchronious extends AsyncTask<String, Void , String> {
         screen = s;
     }
 
-    @Override protected String doInBackground(String... params) {
-        String strRep = params[1] + " " + params[3];
+    @Override protected ArrayList<String> doInBackground(String... params) {
+        ArrayList<String> listRep = new ArrayList<String>();
         try {
             URL url = new URL("http://lesqua.16mb.com/projet_android/se_connecter.php?");
-            //pseudo=" + params[0] + "&mdp="+ params[1]
 
             // instantier l'objet grâce à la méthode "openConnection()"
             HttpURLConnection connection;
@@ -71,7 +70,41 @@ public class LoginAsynchronious extends AsyncTask<String, Void , String> {
 
             if (responseCode == 200)
             {
-                InputStream in =  new BufferedInputStream(connection.getInputStream());
+                // Retourne la réponse du serveur
+                InputStream in = connection.getInputStream();
+
+                // Recuperation du texte au format JSON
+                JsonReader jsonReader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+
+                // Début de la récuperation
+                jsonReader.beginObject();
+
+                if (jsonReader.hasNext()) {
+                    String label = jsonReader.nextName();
+                    int code = jsonReader.nextInt();
+                    switch (code) {
+                        case 0   :
+                            listRep.add("OK");
+                            if (jsonReader.hasNext()) {
+                                label = jsonReader.nextName();
+                                int id = jsonReader.nextInt();
+                                listRep.add(id + "");
+                            }
+                            break;
+                        case 100  : listRep.add("Problème avec le pseudo"); break;
+                        case 110  : listRep.add("Problème avec le mdp"); break;
+                        case 200  : listRep.add("Combinaison login/password incorrecte"); break;
+                        case 1000 : listRep.add("Problème de connexion à la DB"); break;
+                        default     : listRep.add(code + ""); break;
+                    }
+                }
+                // Fin de la récuperation
+                jsonReader.endObject();
+            }
+            else{ listRep.add("ResponseCode différent de 200"); }
+            connection.disconnect();
+
+                /*InputStream in =  new BufferedInputStream(connection.getInputStream());
 
                 // Retourne la réponse du serveur
 
@@ -81,29 +114,32 @@ public class LoginAsynchronious extends AsyncTask<String, Void , String> {
                 if (scanner.hasNext()){
                     String error_txt = scanner.next();
                     switch (error_txt){
-                        case "0"   : strRep = "OK"; break;
-                        case "100"  : strRep = "Problème avec le pseudo"; break;
-                        case "110"  : strRep = "Problème avec le mdp"; break;
-                        case "200"  : strRep = "Combinaison login/password incorrecte"; break;
-                        case "1000" : strRep = "Problème de connexion à la DB"; break;
-                        default     : strRep =  error_txt; break;
+                        case "0"   :
+                            listRep.add("OK");
+
+                            break;
+                        case "100"  : listRep.add("Problème avec le pseudo"); break;
+                        case "110"  : listRep.add("Problème avec le mdp"); break;
+                        case "200"  : listRep.add("Combinaison login/password incorrecte"); break;
+                        case "1000" : listRep.add("Problème de connexion à la DB"); break;
+                        default     : listRep.add(error_txt); break;
                     }
                 }
 
             }
-            else{ strRep = "ResponseCode différent de 200"; }
+            else{ listRep.add("ResponseCode différent de 200"); }
             // Déconnecte la connection
 
 
-            connection.disconnect();
+            connection.disconnect();*/
         }
-        catch (MalformedURLException e) { e.printStackTrace(); strRep = e.getMessage(); }
-        catch (Exception e){ e.getStackTrace(); strRep = e.getMessage();}
-        return strRep;
+        catch (MalformedURLException e) { e.printStackTrace(); listRep.add(e.getMessage()); }
+        catch (Exception e){ e.getStackTrace(); listRep.add(e.getMessage());}
+        return listRep;
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(ArrayList<String> result) {
         // Callback
         // Renvoie les informations dans la fonction populate du mainactivity
         try { screen.populate_connect(result); }

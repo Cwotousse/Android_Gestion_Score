@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Gestion_Score.iml" filepath="$PROJECT_DIR$/Gestion_Score.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android_Gestion_Score.iml" filepath="$PROJECT_DIR$/Android_Gestion_Score.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

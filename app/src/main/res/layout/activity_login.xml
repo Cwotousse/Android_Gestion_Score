@@ -74,17 +74,6 @@
         android:layout_alignStart="@+id/et_new_username"
         android:layout_marginTop="15dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_below="@+id/et_new_pwd1"
-        android:layout_alignRight="@+id/et_new_pwd1"
-        android:layout_alignEnd="@+id/et_new_pwd1"
-        android:layout_marginTop="18dp"
-        android:id="@+id/et_new_pwd2" />
-
     <Button
         android:text="Create"
         android:layout_width="wrap_content"
@@ -95,15 +84,6 @@
         android:layout_alignStart="@+id/et_new_pwd2" />
 
     <Button
-        android:text="Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_cancel"
-        android:layout_below="@+id/et_new_pwd2"
-        android:layout_alignLeft="@+id/btn_sign_up"
-        android:layout_alignStart="@+id/btn_sign_up" />
-
-    <Button
         android:text="Sign up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,4 +91,24 @@
         android:layout_above="@+id/et_new_username"
         android:layout_alignRight="@+id/et_login_pwd"
         android:layout_alignEnd="@+id/et_login_pwd" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_marginTop="19dp"
+        android:id="@+id/et_new_pwd2"
+        android:layout_below="@+id/et_new_pwd1"
+        android:layout_alignRight="@+id/btn_cancel"
+        android:layout_alignEnd="@+id/btn_cancel" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_cancel"
+        android:layout_below="@+id/et_new_pwd2"
+        android:layout_alignLeft="@+id/btn_sign_up"
+        android:layout_alignStart="@+id/btn_sign_up" />
 </RelativeLayout>

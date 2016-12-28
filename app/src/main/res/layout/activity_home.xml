@@ -63,4 +63,12 @@
         android:id="@+id/btn_display_user_list"
         android:layout_below="@+id/btn_display_game_list"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_error" />
 </RelativeLayout>

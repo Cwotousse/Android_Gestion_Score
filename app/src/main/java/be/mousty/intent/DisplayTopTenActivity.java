@@ -9,45 +9,41 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import be.mousty.asychronious.AddScoreAsynchronious;
-import be.mousty.asychronious.GameListAsynchronious;
+import be.mousty.asychronious.DisplayTopTenAccordingToGameAsynchronious;
+import be.mousty.asychronious.GameListTopSearchAsynchronious;
 import mousty.condorcet.be.gestion_score.R;
 
 /**
  * Created by Admin on 26/12/2016.
  */
 
-public class AddScoreActivity extends AppCompatActivity {
+public class DisplayTopTenActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
-    String id_utilisateur;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_score);
-
-        // Session
-        setID(savedInstanceState);
-        TextView tv_logs = (TextView) findViewById(R.id.tv_logs);
-        tv_logs.setText(id_utilisateur);
+        setContentView(R.layout.activity_top_ten);
 
         //Import the game list
-        new GameListAsynchronious(AddScoreActivity.this).execute();
+        new GameListTopSearchAsynchronious(DisplayTopTenActivity.this).execute();
 
         // BUTTON
-        Button btn_Add_new_Score = (Button) findViewById(R.id.btn_display_top);
-        btn_Add_new_Score.setOnClickListener(add__new_score);
+        Button btn_display_top = (Button) findViewById(R.id.btn_display_top);
+        btn_display_top.setOnClickListener(display_top);
 
         Button btn_return = (Button) findViewById(R.id.btn_ret);
         btn_return.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                Intent return_intent = new Intent(AddScoreActivity.this, HomeActivity.class);
+                Intent return_intent = new Intent(DisplayTopTenActivity.this, HomeActivity.class);
                 setResult(RESULT_CANCELED, return_intent);
                 finish();
             }
@@ -56,7 +52,7 @@ public class AddScoreActivity extends AppCompatActivity {
     }
 
     // Add score within the DB
-    private View.OnClickListener add__new_score = new View.OnClickListener() {
+    private View.OnClickListener display_top = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             EditText et_new_score = (EditText) findViewById(R.id.et_new_score);
@@ -65,7 +61,11 @@ public class AddScoreActivity extends AppCompatActivity {
             try {
                 // Appel de la tâche async avec ses paramètres
                 tv_error.setText("");
-                new AddScoreAsynchronious(AddScoreActivity.this).execute(et_new_score.getText().toString(), actv_jeu.getText().toString(), id_utilisateur);
+                // Param le param est entré comme ceci [pokemon]
+                String param = actv_jeu.getText().toString();
+                param.replace("[", "");
+                param.replace("]", "");
+                new DisplayTopTenAccordingToGameAsynchronious(DisplayTopTenActivity.this).execute(param);
             } catch (Exception e) {
                 tv_error.setText(e.getMessage());
             }
@@ -110,44 +110,47 @@ public class AddScoreActivity extends AppCompatActivity {
     }
 
     // Add score and return to the previous intent
-    public void populate_add_score(String res) {
+    public void populate_display_top(ArrayList<String> res) {
         TextView tv_error = (TextView) findViewById(R.id.tv_error);
-        if (!res.equals("OK")) {
-            tv_error.setText("[UNABLE TO ADD THE SCORE] " + res);
+        if (!res.get(0).equals("OK")) {
+            tv_error.setText("[UNABLE TO DISPLAY THE TOP TEN] " + res);
             tv_error.setTextColor(Color.parseColor("#ff0000"));
         }
         else{
-            // Return to the previous intent
-            Intent return_intent = new Intent(AddScoreActivity.this, HomeActivity.class);
-            setResult(RESULT_OK, return_intent);
-            finish();
-        }
-    }
-
-    public void setID(Bundle savedInstanceState){
-        // Reconnection
-
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                id_utilisateur= null;
-            } else {
-                id_utilisateur= extras.getString("id_utilisateur");
+            // Display top
+            // On retire le "ok"
+            res.remove(0);
+            ArrayList<String> pseudo = new ArrayList<String>();
+            ArrayList<String> score  = new ArrayList<String>();
+            // On split l'arraylist reçue
+            for (String str : res){
+                String [] splitStr = str.split("|");
+                pseudo.add(splitStr[0]);
+                score.add(splitStr[1]);
             }
-        } else {
-            id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur");
-        }
 
-        TextView tv_error = (TextView)findViewById(R.id.tv_logs);
-        tv_error.setText(id_utilisateur);
+            init(res);
+        }
     }
 
-    // Verify session
-    public void populate_session_result(String res) {
-        TextView tv_logs = (TextView) findViewById(R.id.tv_logs);
-        String color_code = "#9dc94f";
+    public void init(ArrayList<String> listeClients){
+        try {
+            TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
+            for (String s : listeClients) {
+                TableRow row = new TableRow(this);
+                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                row.setLayoutParams(lp);
+                // On split les éléments
 
-        tv_logs.setText(res);
-        tv_logs.setTextColor(Color.parseColor(color_code));
+                // Chaque mot est placé dans un textView
+                //for(int i = 0; i < 2; i++) {
+                TextView tv = new TextView(this);
+                tv.setText(s);
+                row.addView(tv);
+                //}
+                tl.addView(row);
+            }
+        }
+        catch (Exception e) { e.getStackTrace(); }
     }
 }

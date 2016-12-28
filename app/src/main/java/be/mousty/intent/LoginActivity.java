@@ -59,22 +59,22 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void populate_connect(String res) {
+    public void populate_connect(ArrayList<String> res) {
         TextView tv_error = (TextView) findViewById(R.id.tv_error);
         String color_code = "#9dc94f";
 
-        if (!res.equals("OK")) {
+        if (!res.get(0).equals("OK")) {
             tv_error.setText("[UNABLE TO CONNECT]" + res);
             color_code = "#ff0000";
         }
         else{
             tv_error.setText("[CONNECT ESTABLISHED]");
-            EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-            EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-            // Si la connexion a fonctionné, on affiche le home screen
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            // POUR GARDER LA VARIABLE DE SESSION ACTIVEE
 
+            // Si la connexion a fonctionné, on affiche le home screen AVEC LE PSEUDO ET MDP POUR LA SESSION
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+
+            // POUR GARDER LID DE LUTILISATEUR
+            intent.putExtra("id_utilisateur", res.get(1).toString());
 
             startActivity(intent);
         }
@@ -92,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
             color_code = "#ff0000";
         }
         else{
-
             // On cache le formulaire
             make_invisble_or_visible_sign_up_screen(false);
             String id_user = res.get(1);
@@ -139,26 +138,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    public void save_data(View view){
-        EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-        EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-
-        // Only the application can access it
-        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("pseudo", et_login_name.getText().toString());
-        editor.putString("mdp", et_login_pwd.getText().toString());
-
-        editor.apply();
-    }
-
-    public void display_saved_Data(View view){
-        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String pseudo = sharedPreferences.getString("pseudo","");
-        String mdp = sharedPreferences.getString("mdp","");
-    }
-
     public void make_invisble_or_visible_sign_up_screen(Boolean visible) {
         // Enregistrement
         EditText et_new_username = (EditText) findViewById(R.id.et_new_username);
@@ -167,12 +146,6 @@ public class LoginActivity extends AppCompatActivity {
         Button btn_new_sign_up = (Button) findViewById(R.id.btn_new_sign_up);
         Button btn_cancel = (Button) findViewById(R.id.btn_cancel);
 
-        // Connexion
-        /*EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-        EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-        Button btn_connect = (Button) findViewById(R.id.btn_connect);
-        Button btn_sign_up = (Button) findViewById(R.id.btn_sign_up);*/
-
         // Invisible
         if (!visible) {
             et_new_username.setVisibility(View.GONE);
@@ -180,11 +153,6 @@ public class LoginActivity extends AppCompatActivity {
             et_new_pwd2.setVisibility(View.GONE);
             btn_new_sign_up.setVisibility(View.GONE);
             btn_cancel.setVisibility(View.GONE);
-
-            /*et_login_name.setVisibility(VISIBLE);
-            et_login_pwd.setVisibility(VISIBLE);
-            btn_connect.setVisibility(VISIBLE);
-            btn_sign_up.setVisibility(VISIBLE);*/
         }
         // Visible
         else {
@@ -194,25 +162,6 @@ public class LoginActivity extends AppCompatActivity {
             btn_new_sign_up.setVisibility(VISIBLE);
             btn_cancel.setVisibility(VISIBLE);
 
-            /*et_login_name.setVisibility(View.GONE);
-            et_login_pwd.setVisibility(View.GONE);
-            btn_connect.setVisibility(View.GONE);
-            btn_sign_up.setVisibility(View.GONE);*/
         }
     }
-
-        /*private View.OnClickListener toggle_visibility = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            try {
-                EditText et_new_username = (EditText) findViewById(R.id.et_new_username);
-                // S'il est déjà visible on le cache, sinon on l'affiche.
-                boolean toggle_visibility = et_new_username.getVisibility() == VISIBLE ? false : true;
-                make_invisble_or_visible_sign_up_screen(toggle_visibility);
-            } catch (Exception e) {
-                TextView tv_error = (TextView) findViewById(R.id.tv_error);
-                tv_error.setText(e.getMessage());
-            }
-        }
-    };*/
 }

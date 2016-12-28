@@ -41,7 +41,7 @@ public class AddScoreAsynchronious extends AsyncTask<String, Void, String> {
         String error_message = "";
         try {
             // WATCH OUT PARAM INVERTED
-            URL url = new URL("http://www.lesqua.16mb.com/projet_android/ajouter_score.php?jeu=" + params[1] + "&score=" + params[0]);
+            URL url = new URL("http://www.lesqua.16mb.com/projet_android/ajouter_score.php?jeu=" + params[1] + "&score=" + params[0] +"&id_utilisateur=" + params[2]);
 
             // instantier l'objet grâce à la méthode "openConnection()"
             HttpURLConnection connection;
