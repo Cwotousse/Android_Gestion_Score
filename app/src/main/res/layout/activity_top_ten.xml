@@ -18,10 +18,10 @@
         android:id="@+id/tv_title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="TOP TEN" />
+        android:text="@string/title_top_ten" />
 
     <Button
-        android:text="Return"
+        android:text="@string/btn_return"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_ret"
@@ -30,7 +30,7 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="DISPLAY"
+        android:text="@string/btn_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_display_top"
@@ -54,51 +54,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:completionHint="NAME"
         android:layout_below="@+id/tv_title"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:hint="@string/game_name">
     </AutoCompleteTextView>
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        android:id="@+id/tableLayout"
-        android:layout_above="@+id/tv_error"
-        android:layout_below="@+id/btn_display_top">
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wv_top_ten"
+        android:layout_marginTop="130dp"
+        android:layout_above="@+id/tv_error">
 
-        <TableRow>
-
-            <TextView
-                android:text="TOP 10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="35px"
-                android:id="@+id/tv_title_Table" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="N°"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="35px"/>
-            <TextView
-                android:text="Pseudo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="150px"/>
-
-            <TextView
-                android:text="Score"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="150px" />
-        </TableRow>
-        <TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent" android:layout_height="match_parent"
-            android:id="@+id/tableLayoutScore">
-
-        </TableLayout>
-    </TableLayout>
+    </WebView>
 
 </RelativeLayout>

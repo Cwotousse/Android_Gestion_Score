@@ -38,12 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_title"
-        android:text="DISPLAY GAME LIST"
+        android:text="@string/title_game_list"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Previous"
+        android:text="@string/btn_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tableLayout"
@@ -54,7 +54,7 @@
         android:src="@drawable/previous"/>
 
     <Button
-        android:text="Next"
+        android:text="@string/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tv_title"
@@ -85,7 +85,7 @@
                 android:paddingLeft="35px"/>
 
             <TextView
-                android:text="USERNAME"
+                android:text="@string/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="150px" />
@@ -110,7 +110,7 @@
     </TableLayout>
 
     <Button
-        android:text="Return"
+        android:text="@string/btn_return"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_ret"

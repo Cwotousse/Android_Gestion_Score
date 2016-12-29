@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GESTION DE SCORE</string>
+    <string name="btn_add">AJOUTER SCORE</string>
+    <string name="btn_cancel">ANNULER</string>
+    <string name="btn_connect">CONNECTER</string>
+    <string name="btn_create">CREER</string>
+    <string name="btn_display">AFFICHER</string>
+    <string name="btn_execute">EXECUTER</string>
+    <string name="btn_next">SUIVANT</string>
+    <string name="btn_previous">PRECEDENT</string>
+    <string name="btn_return">RETOUR</string>
+    <string name="btn_sign_in">SE CONNECTER</string>
+    <string name="btn_sign_up">S\'ENREGISTRER</string>
+    <string name="et_game">NOM DU JEU</string>
+    <string name="et_login">NOM DE COMPTE</string>
+    <string name="et_pwd">MOT DE PASSE</string>
+    <string name="et_score">VOTRE SCORE</string>
+    <string name="et_username">PSEUDO</string>
+    <string name="game_name">NOM DU JEU</string>
+    <string name="loading">CHARGEMENT</string>
+    <string name="loading_wait">CHARGEMENT ... ATTENDEZ S.V.P</string>
+    <string name="title_add_Score">AJOUTER SCORE</string>
+    <string name="title_game_list">LISTE DES JEUX</string>
+    <string name="title_home_screen">ACCUEIL</string>
+    <string name="title_login">PSEUDO</string>
+    <string name="title_top_ten">TOP 10</string>
+    <string name="title_user_list">LISTE DES UTILISATEURS</string>
+</resources>

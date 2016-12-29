@@ -110,7 +110,6 @@ public class DisplayGameListActivity extends AppCompatActivity {
             tl.removeAllViews();
             int i = 0;
             int nbrPages = 0;
-            WebView vue_web = null;
             for (String s : game_list) {
                 // IF THE PAGE IS THE CURRENT PAGE WE DISPLAY INFORMATION
                 // IF NOT WE DISPLAY NOTHING

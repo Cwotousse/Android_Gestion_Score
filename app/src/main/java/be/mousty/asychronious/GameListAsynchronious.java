@@ -1,5 +1,6 @@
 package be.mousty.asychronious;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import be.mousty.intent.AddScoreActivity;
+import be.mousty.intent.LoginActivity;
 
 //http://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
 // On remplace les XYZ par le type objet nécéssaire
@@ -20,17 +22,24 @@ import be.mousty.intent.AddScoreActivity;
 public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<String>> {
     private AddScoreActivity screen = null;
 
-    /*@Override protected void onPreExecute() {
-        // Prétraitement de l'appel
+    ProgressDialog progress;
+    public GameListAsynchronious(AddScoreActivity s) {
+        screen = s;
+        progress = new ProgressDialog(screen);
     }
 
-    @Override protected void onProgressUpdate(Y... progress) {
+    @Override protected void onPreExecute() {
+        // Prétraitement de l'appel
+        progress.setTitle("WAIT PLEASE");
+        progress.setMessage("WE ARE SEARCHING OUR DATA...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+    }
+
+    /*@Override protected void onProgressUpdate(Y... progress) {
         // Gestion de l'avancement de la tâche
     }*/
 
-    public GameListAsynchronious(AddScoreActivity s) {
-        screen = s;
-    }
 
     @Override
     protected ArrayList<String> doInBackground(Void... params) {
@@ -107,17 +116,12 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
                 jsonReader.endObject();
             }
             connection.disconnect();
-        } catch (
-                MalformedURLException e
-                )
-
+        }catch ( MalformedURLException e )
         {
             e.printStackTrace();
             game_list.add(e.getMessage());
-        } catch (
-                Exception e
-                )
-
+        }
+        catch (Exception e)
         {
             e.getStackTrace();
             game_list.add(e.getMessage());
@@ -131,6 +135,7 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
         // Callback
         // Renvoie les informations dans la fonction populate du mainactivity
         try {
+            if(progress.isShowing()) { progress.dismiss(); }
             screen.populate_game_list(result);
         } catch (Exception e) {
             e.getStackTrace();

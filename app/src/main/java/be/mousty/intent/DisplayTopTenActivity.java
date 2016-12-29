@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,6 +21,9 @@ import java.util.Set;
 import be.mousty.asychronious.DisplayTopTenAccordingToGameAsynchronious;
 import be.mousty.asychronious.GameListTopSearchAsynchronious;
 import mousty.condorcet.be.gestion_score.R;
+
+import static android.view.View.VISIBLE;
+import static android.view.View.generateViewId;
 
 /**
  * Created by Admin on 26/12/2016.
@@ -44,6 +48,11 @@ public class DisplayTopTenActivity extends AppCompatActivity {
                 tv_error.setText("");
                 new DisplayTopTenAccordingToGameAsynchronious(DisplayTopTenActivity.this).execute(game);
             } catch (Exception e) { tv_error.setText(e.getMessage()); }
+        }
+        // Else, we need to hide the WV
+        else{
+            WebView vue_web = (WebView) findViewById(R.id.wv_top_ten);
+            vue_web.setVisibility(View.GONE);
         }
 
         //Import the game list
@@ -131,37 +140,63 @@ public class DisplayTopTenActivity extends AppCompatActivity {
 
     public void ini_table(ArrayList<String> top_ten){
         try {
-            TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutScore);
-            tl.removeAllViews();
+            // Build the table
+            String htmlTable =
+                    "<!-- CSS Code -->\n" +
+                            "<style type=\"text/css\" scoped>\n" +
+                            "table.GeneratedTable {\n" +
+                            "width:100%;\n" +
+                            "background-color:#FFFFFF;\n" +
+                            "border-collapse:collapse;border-width:0px;\n" +
+                            "border-color:#FFFFFF;\n" +
+                            "border-style:solid;\n" +
+                            "color:#000000;\n" +
+                            "}\n" +
+                            "\n" +
+                            "table.GeneratedTable td, table.GeneratedTable th {\n" +
+                            "border-width:0px;\n" +
+                            "border-color:#FFFFFF;\n" +
+                            "border-style:solid;\n" +
+                            "padding:3px;\n" +
+                            "}\n" +
+                            "\n" +
+                            "table.GeneratedTable thead {\n" +
+                            "background-color:#99FF00;\n" +
+                            "}\n" +
+                            "</style>\n" +
+                            "\n" +
+                            "<!-- HTML Code -->\n" +
+                            "<table class=\"GeneratedTable\">\n" +
+                            "<thead>\n" +
+                            "<tr>\n" +
+                                "<th>NUM</th>\n" +
+                                "<th>USERNAME</th>"+
+                                "<th>SCORE</th>\n" +
+                            "</thead>\n" +
+                            "<tbody>\n";
             int i = 0;
 
             for (String s : top_ten) {
-                String[] parts = s.split("~");
-                String pseudo   = parts[0]; // 004
-                String score    = parts[1]; // 034556
-
-                TableRow newRow = new TableRow(this);
-
-                TextView column1 = new TextView(this);
-                TextView column2 = new TextView(this);
-                TextView column3 = new TextView(this);
-
-                column1.setText(""+ (i +1));
-                column2.setText(pseudo);
-                column3.setText(score);
-
-
-                column1.setPadding(35,0,0,0);
-                column2.setPadding(230,0,185,0);
-
-                newRow.addView(column1);
-                newRow.addView(column2);
-                newRow.addView(column3);
-
-                tl.addView(newRow, new TableLayout.LayoutParams());
-
+                // ONLY 10 ELEMENTS
+                if (i < 10) {
+                    String[] parts  = s.split("~");
+                    String pseudo   = parts[0]; // 004
+                    String score    = parts[1]; // 034556
+                    htmlTable+=
+                        "<tr>\n" +
+                            "<td>"+ (i+1) +"</td>\n" +
+                            "<td>"+ pseudo +"</td>\n" +
+                            "<td>"+ score +"</td>\n" +
+                         "</tr>\n";
+                }
                 i++;
             }
+            htmlTable+=
+                    "</tbody>\n" +
+                    "</table>\n";
+            WebView vue_web = (WebView) findViewById(R.id.wv_top_ten);
+            vue_web.loadData(htmlTable, "text/html" ,"UTF-8");
+            vue_web.setVisibility(VISIBLE);
         }
         catch (Exception e) { e.getStackTrace(); }
     }

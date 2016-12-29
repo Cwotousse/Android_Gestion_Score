@@ -10,65 +10,78 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mousty.condorcet.be.gestion_score.be.mousty.intent.HomeActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!-- Ajouter un score -->
+        <TextView
+            android:text="@string/title_home_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_label" />
 
-    <!-- Afficher le top 10 d'un jeu  -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_error" />
 
-    <!-- Afficher la liste des jeux gérés actuellement par l'application -->
+        <!-- Ajouter un score -->
+        <Button
+            android:text="@string/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/btn_add_new_score"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <!-- Lister les utilisateurs -->
+        <!-- Afficher le top 10 d'un jeu  -->
+        <Button
+            android:text="@string/title_user_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_display_user_list"
+            android:layout_below="@+id/btn_display_top_ten"
+            android:layout_alignRight="@+id/btn_add_new_score"
+            android:layout_alignEnd="@+id/btn_add_new_score"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="HOME SCREEN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/tv_label" />
+        <!-- Afficher la liste des jeux gérés actuellement par l'application -->
+        <Button
+            android:text="@string/title_game_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_display_game_list"
+            android:layout_below="@+id/btn_add_new_score"
+            android:layout_alignRight="@+id/btn_add_new_score"
+            android:layout_alignEnd="@+id/btn_add_new_score"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Add new score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_label"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:id="@+id/btn_add_new_score" />
+        <!-- Lister les utilisateurs -->
+        <Button
+            android:text="@string/title_top_ten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_display_top_ten"
+            android:layout_below="@+id/btn_display_game_list"
+            android:layout_alignRight="@+id/btn_display_user_list"
+            android:layout_alignEnd="@+id/btn_display_user_list"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Display top 10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_add_new_score"
-        android:layout_alignLeft="@+id/btn_add_new_score"
-        android:layout_alignStart="@+id/btn_add_new_score"
-        android:layout_marginTop="24dp"
-        android:id="@+id/btn_display_top_ten" />
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mojojojo4"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
-    <Button
-        android:text="display game list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:id="@+id/btn_display_game_list"
-        android:layout_below="@+id/btn_display_top_ten"
-        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="Display user list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:id="@+id/btn_display_user_list"
-        android:layout_below="@+id/btn_display_game_list"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/tv_error" />
 </RelativeLayout>

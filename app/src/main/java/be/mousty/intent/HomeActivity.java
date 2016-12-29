@@ -56,6 +56,15 @@ public class HomeActivity extends AppCompatActivity {
                 startActivityForResult(intent, NUM_REQUETE);
             }
         });
+
+        btn_display_user_list.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                // Start a new intent to add a brand new score
+                Intent intent = new Intent(HomeActivity.this, DisplayUserListActivity.class);
+                startActivityForResult(intent, NUM_REQUETE);
+            }
+        });
     }
 
     public void setID(Bundle savedInstanceState){

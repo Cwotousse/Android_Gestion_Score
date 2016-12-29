@@ -11,9 +11,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mousty.condorcet.be.gestion_score.be.mousty.intent.AddScoreActivity">
 
-
     <TextView
-        android:text="ADD A NEW SCORE"
+        android:text="@string/title_add_Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_title"
@@ -21,7 +20,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Add this score"
+        android:text="@string/title_add_Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_display_top"
@@ -31,32 +30,21 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/et_new_score"
-        android:hint="SCORE"
-        android:layout_marginTop="52dp"
-        android:layout_below="@+id/game_title"
-        android:layout_centerHorizontal="true" />
-
     <AutoCompleteTextView
         android:id="@+id/game_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
-        android:completionHint="NAME"
         android:layout_below="@+id/tv_title"
         android:layout_alignLeft="@+id/et_new_score"
         android:layout_alignStart="@+id/et_new_score"
         android:layout_alignRight="@+id/et_new_score"
-        android:layout_alignEnd="@+id/et_new_score">
+        android:layout_alignEnd="@+id/et_new_score"
+        android:hint="@string/et_game">
     </AutoCompleteTextView>
 
     <Button
-        android:text="Return"
+        android:text="@string/btn_return"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_ret"
@@ -67,18 +55,36 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_error"
-        android:layout_above="@+id/btn_display_top"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="39dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/tv_logs"
         android:layout_above="@+id/tv_error"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/et_new_score"
+        android:hint="@string/et_score"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/game_title"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:src="@drawable/rectangle"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="250dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_error"
+        android:layout_above="@+id/btn_display_top"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

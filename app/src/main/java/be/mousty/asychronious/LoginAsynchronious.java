@@ -1,5 +1,7 @@
 package be.mousty.asychronious;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
@@ -28,18 +30,27 @@ import be.mousty.intent.LoginActivity;
 public class LoginAsynchronious extends AsyncTask<String, Void , ArrayList<String>> {
 
     private LoginActivity screen = null;
-
-    /*@Override protected void onPreExecute() {
-        // Prétraitement de l'appel
+    ProgressDialog progress;
+    public LoginAsynchronious(LoginActivity s) {
+        screen = s;
+        progress = new ProgressDialog(screen);
     }
 
-    @Override protected void onProgressUpdate(Y... progress) {
+
+
+    @Override protected void onPreExecute() {
+        // Prétraitement de l'appel
+        progress.setTitle("WAIT PLEASE");
+        progress.setMessage("WE ARE CURRENTLY RETREIVING YOUR DATA...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+    }
+
+    /*@Override protected void onProgressUpdate(Y... progress) {
         // Gestion de l'avancement de la tâche
     }*/
 
-    public LoginAsynchronious(LoginActivity s) {
-        screen = s;
-    }
+
 
     @Override protected ArrayList<String> doInBackground(String... params) {
         ArrayList<String> listRep = new ArrayList<String>();
@@ -142,8 +153,14 @@ public class LoginAsynchronious extends AsyncTask<String, Void , ArrayList<Strin
     protected void onPostExecute(ArrayList<String> result) {
         // Callback
         // Renvoie les informations dans la fonction populate du mainactivity
-        try { screen.populate_connect(result); }
+        try {
+            if(progress.isShowing()) { progress.dismiss(); }
+            screen.populate_connect(result);
+        }
         catch (Exception e) { e.getStackTrace(); }
+
+
+
     }
 
     // Pour manipuler une liste de paramètres tel que l'username et le password

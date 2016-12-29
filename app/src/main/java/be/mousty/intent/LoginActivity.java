@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -137,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText et_new_pwd2        = (EditText) findViewById(R.id.et_new_pwd2);
         Button btn_new_sign_up      = (Button) findViewById(R.id.btn_new_sign_up);
         Button btn_cancel           = (Button) findViewById(R.id.btn_cancel);
+        ImageView iv_mojojojo2      = (ImageView) findViewById(R.id.iv_mojojojo2);
 
         // Invisible
         if (!visible) {
@@ -145,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
             et_new_pwd2     .setVisibility(View.GONE);
             btn_new_sign_up .setVisibility(View.GONE);
             btn_cancel      .setVisibility(View.GONE);
+            iv_mojojojo2    .setVisibility(VISIBLE);
         }
         // Visible
         else {
@@ -153,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
             et_new_pwd2     .setVisibility(VISIBLE);
             btn_new_sign_up .setVisibility(VISIBLE);
             btn_cancel      .setVisibility(VISIBLE);
-
+            iv_mojojojo2    .setVisibility(View.GONE);
         }
     }
 }

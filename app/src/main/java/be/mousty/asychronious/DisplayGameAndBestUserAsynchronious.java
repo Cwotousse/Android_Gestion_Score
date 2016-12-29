@@ -1,5 +1,6 @@
 package be.mousty.asychronious;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
@@ -20,18 +21,26 @@ import be.mousty.intent.DisplayTopTenActivity;
 // Z -> Résultat, placé dans onPostExecute
 public class DisplayGameAndBestUserAsynchronious extends AsyncTask<Void, Void, ArrayList<String>> {
     private DisplayGameListActivity screen = null;
-
-    /*@Override protected void onPreExecute() {
-        // Prétraitement de l'appel
-    }
-
-    @Override protected void onProgressUpdate(Y... progress) {
-        // Gestion de l'avancement de la tâche
-    }*/
+    ProgressDialog progress;
 
     public DisplayGameAndBestUserAsynchronious(DisplayGameListActivity s) {
         screen = s;
+        progress = new ProgressDialog(screen);
     }
+
+    @Override protected void onPreExecute() {
+        // Prétraitement de l'appel
+        progress.setTitle("WAIT PLEASE");
+        progress.setMessage("WE ARE CURRENTLY RETREIVING YOUR DATA...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+    }
+
+    /*@Override protected void onProgressUpdate(Y... progress) {
+        // Gestion de l'avancement de la tâche
+    }*/
+
+
 
     @Override
     protected ArrayList<String> doInBackground(Void... params) {
@@ -144,6 +153,7 @@ public class DisplayGameAndBestUserAsynchronious extends AsyncTask<Void, Void, A
         // Callback
         // Renvoie les informations dans la fonction populate du mainactivity
         try {
+            if(progress.isShowing()) { progress.dismiss(); }
             screen.populate_game_list(result);
         } catch (Exception e) {
             e.getStackTrace();
