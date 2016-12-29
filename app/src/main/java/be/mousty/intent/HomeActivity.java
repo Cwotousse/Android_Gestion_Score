@@ -26,7 +26,6 @@ public class HomeActivity extends AppCompatActivity {
         Button btn_add_new_score        = (Button)findViewById(R.id.btn_add_new_score);
         Button btn_display_top_ten      = (Button)findViewById(R.id.btn_display_top_ten);
         Button btn_display_game_list    = (Button)findViewById(R.id.btn_display_game_list);
-
         Button btn_display_user_list    = (Button)findViewById(R.id.btn_display_user_list);
 
         btn_add_new_score.setOnClickListener(new View.OnClickListener() {
@@ -48,22 +47,25 @@ public class HomeActivity extends AppCompatActivity {
                 startActivityForResult(intent, NUM_REQUETE);
             }
         });
+
+        btn_display_game_list.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                // Start a new intent to add a brand new score
+                Intent intent = new Intent(HomeActivity.this, DisplayGameListActivity.class);
+                startActivityForResult(intent, NUM_REQUETE);
+            }
+        });
     }
 
     public void setID(Bundle savedInstanceState){
         // Reconnection
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                id_utilisateur= null;
-
-            } else {
-                id_utilisateur= extras.getString("id_utilisateur");
-
-            }
-        } else {
-            id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur");
+            if(extras == null) { id_utilisateur= null; }
+            else { id_utilisateur= extras.getString("id_utilisateur"); }
         }
+        else {id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur"); }
 
         TextView tv_error = (TextView)findViewById(R.id.tv_error);
         tv_error.setText(id_utilisateur);

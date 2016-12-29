@@ -27,10 +27,24 @@ import mousty.condorcet.be.gestion_score.R;
 
 public class DisplayTopTenActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
+    String game = null;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_ten);
+
+        setGame(savedInstanceState);
+
+        // If the game text isn't null, it's because the data come from DisplayGameListActivitiy,
+        // We have to display immediatly the top ten
+        if(game != null){
+            TextView tv_error = (TextView) findViewById(R.id.tv_error);
+            try {
+                // Call the async task with parameters
+                tv_error.setText("");
+                new DisplayTopTenAccordingToGameAsynchronious(DisplayTopTenActivity.this).execute(game);
+            } catch (Exception e) { tv_error.setText(e.getMessage()); }
+        }
 
         //Import the game list
         new GameListTopSearchAsynchronious(DisplayTopTenActivity.this).execute();
@@ -55,20 +69,18 @@ public class DisplayTopTenActivity extends AppCompatActivity {
     private View.OnClickListener display_top = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            EditText et_new_score = (EditText) findViewById(R.id.et_new_score);
             AutoCompleteTextView actv_jeu = (AutoCompleteTextView) findViewById(R.id.game_title);
             TextView tv_error = (TextView) findViewById(R.id.tv_error);
             try {
                 // Appel de la tâche async avec ses paramètres
                 tv_error.setText("");
-                // Param le param est entré comme ceci [pokemon]
+                // Sometimes the param is inserted like this [pokemon]
                 String param = actv_jeu.getText().toString();
+                // Me must extrat [ and ]
                 param.replace("[", "");
                 param.replace("]", "");
                 new DisplayTopTenAccordingToGameAsynchronious(DisplayTopTenActivity.this).execute(param);
-            } catch (Exception e) {
-                tv_error.setText(e.getMessage());
-            }
+            } catch (Exception e) { tv_error.setText(e.getMessage()); }
         }
     };
 
@@ -90,13 +102,6 @@ public class DisplayTopTenActivity extends AppCompatActivity {
             hs.addAll(res);
             res.clear();
             res.addAll(hs);
-
-            //Create Array Adapter
-            String debug ="";
-            for(String e : res){
-                debug += e + "";
-            }
-            tv_error.setText(debug);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice, res);
 
@@ -120,34 +125,11 @@ public class DisplayTopTenActivity extends AppCompatActivity {
             // Display top
             // On retire le "ok"
             res.remove(0);
-
-
-            init(res);
+            ini_table(res);
         }
     }
 
-    /*public void init(ArrayList<String> listeClients){
-        try {
-            TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
-            for (String s : listeClients) {
-                TableRow row = new TableRow(this);
-                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-                row.setLayoutParams(lp);
-                // On split les éléments
-
-                // Chaque mot est placé dans un textView
-                //for(int i = 0; i < 2; i++) {
-                TextView tv = new TextView(this);
-                tv.setText(s);
-                row.addView(tv);
-                //}
-                tl.addView(row);
-            }
-        }
-        catch (Exception e) { e.getStackTrace(); }
-    }*/
-
-    public void init(ArrayList<String> top_ten){
+    public void ini_table(ArrayList<String> top_ten){
         try {
             TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutScore);
             tl.removeAllViews();
@@ -170,8 +152,7 @@ public class DisplayTopTenActivity extends AppCompatActivity {
 
 
                 column1.setPadding(35,0,0,0);
-                column2.setPadding(230,0,0,0);
-                column3.setPadding(185,0,0,0);
+                column2.setPadding(230,0,185,0);
 
                 newRow.addView(column1);
                 newRow.addView(column2);
@@ -183,5 +164,15 @@ public class DisplayTopTenActivity extends AppCompatActivity {
             }
         }
         catch (Exception e) { e.getStackTrace(); }
+    }
+
+    public void setGame(Bundle savedInstanceState){
+        // Reconnection
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) { game= null; }
+            else { game= extras.getString("game"); }
+        }
+        else { game= (String) savedInstanceState.getSerializable("game"); }
     }
 }

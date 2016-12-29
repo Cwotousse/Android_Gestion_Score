@@ -33,8 +33,8 @@ public class AddScoreActivity extends AppCompatActivity {
 
         // Session
         setID(savedInstanceState);
-        TextView tv_logs = (TextView) findViewById(R.id.tv_logs);
-        tv_logs.setText(id_utilisateur);
+        TextView tv_logs    = (TextView) findViewById(R.id.tv_logs);
+        tv_logs             .setText(id_utilisateur);
 
         //Import the game list
         new GameListAsynchronious(AddScoreActivity.this).execute();
@@ -63,12 +63,11 @@ public class AddScoreActivity extends AppCompatActivity {
             AutoCompleteTextView actv_jeu = (AutoCompleteTextView) findViewById(R.id.game_title);
             TextView tv_error = (TextView) findViewById(R.id.tv_error);
             try {
-                // Appel de la tâche async avec ses paramètres
+                // Call the async task with parameters
                 tv_error.setText("");
                 new AddScoreAsynchronious(AddScoreActivity.this).execute(et_new_score.getText().toString(), actv_jeu.getText().toString(), id_utilisateur);
-            } catch (Exception e) {
-                tv_error.setText(e.getMessage());
             }
+            catch (Exception e) { tv_error.setText(e.getMessage()); }
         }
     };
 
@@ -92,12 +91,6 @@ public class AddScoreActivity extends AppCompatActivity {
             res.addAll(hs);
 
             //Create Array Adapter
-            String debug ="";
-            for(String e : res){
-                debug += e + "";
-            }
-            tv_error.setText(debug);
-
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice, res);
 
             //Find TextView control
@@ -125,29 +118,14 @@ public class AddScoreActivity extends AppCompatActivity {
     }
 
     public void setID(Bundle savedInstanceState){
-        // Reconnection
-
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                id_utilisateur= null;
-            } else {
-                id_utilisateur= extras.getString("id_utilisateur");
-            }
-        } else {
-            id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur");
+            if(extras == null) { id_utilisateur= null; }
+            else { id_utilisateur= extras.getString("id_utilisateur"); }
         }
+        else { id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur"); }
 
         TextView tv_error = (TextView)findViewById(R.id.tv_logs);
         tv_error.setText(id_utilisateur);
-    }
-
-    // Verify session
-    public void populate_session_result(String res) {
-        TextView tv_logs = (TextView) findViewById(R.id.tv_logs);
-        String color_code = "#9dc94f";
-
-        tv_logs.setText(res);
-        tv_logs.setTextColor(Color.parseColor(color_code));
     }
 }

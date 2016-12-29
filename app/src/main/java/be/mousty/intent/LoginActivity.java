@@ -45,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Enregistrement
-        Button btn_new_sign_up = (Button) findViewById(R.id.btn_new_sign_up);
-        Button btn_cancel = (Button) findViewById(R.id.btn_cancel);
+        Button btn_new_sign_up  = (Button) findViewById(R.id.btn_new_sign_up);
+        Button btn_cancel       = (Button) findViewById(R.id.btn_cancel);
 
         // Create new account
         btn_new_sign_up.setOnClickListener(sign_up);
@@ -61,19 +61,16 @@ public class LoginActivity extends AppCompatActivity {
 
     public void populate_connect(ArrayList<String> res) {
         TextView tv_error = (TextView) findViewById(R.id.tv_error);
-        String color_code = "#9dc94f";
+        String color_code = "#ff0000"; // RED
 
-        if (!res.get(0).equals("OK")) {
-            tv_error.setText("[UNABLE TO CONNECT]" + res);
-            color_code = "#ff0000";
-        }
+        if (!res.get(0).equals("OK")) { tv_error.setText("[UNABLE TO CONNECT]" + res); }
         else{
             tv_error.setText("[CONNECT ESTABLISHED]");
 
-            // Si la connexion a fonctionné, on affiche le home screen AVEC LE PSEUDO ET MDP POUR LA SESSION
+            // If the connection is established, we start a new intent
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 
-            // POUR GARDER LID DE LUTILISATEUR
+            // The userid is transmitted
             intent.putExtra("id_utilisateur", res.get(1).toString());
 
             startActivity(intent);
@@ -103,64 +100,59 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener check_connexion = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-            EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-            TextView tv_error = (TextView) findViewById(R.id.tv_error);
+            EditText et_login_name  = (EditText) findViewById(R.id.et_login_username);
+            EditText et_login_pwd   = (EditText) findViewById(R.id.et_login_pwd);
+            TextView tv_error       = (TextView) findViewById(R.id.tv_error);
             try {
-                // Appel de la tâche async avec ses paramètres
+                // Call the async task with parameters
                 tv_error.setText("");
                 new LoginAsynchronious(LoginActivity.this).execute("pseudo", et_login_name.getText().toString(), "mdp", et_login_pwd.getText().toString());
-            } catch (Exception e) {
-                tv_error.setText(e.getMessage());
-            }
+            } catch (Exception e) { tv_error.setText(e.getMessage()); }
         }
     };
 
     private View.OnClickListener sign_up = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            EditText et_new_username = (EditText) findViewById(R.id.et_new_username);
-            EditText et_new_pwd1 = (EditText) findViewById(R.id.et_new_pwd1);
-            EditText et_new_pwd2 = (EditText) findViewById(R.id.et_new_pwd2);
-            TextView tv_error = (TextView) findViewById(R.id.tv_error);
+            EditText et_new_username    = (EditText) findViewById(R.id.et_new_username);
+            EditText et_new_pwd1        = (EditText) findViewById(R.id.et_new_pwd1);
+            EditText et_new_pwd2        = (EditText) findViewById(R.id.et_new_pwd2);
+            TextView tv_error           = (TextView) findViewById(R.id.tv_error);
             try {
                 if(et_new_pwd1.getText().toString().equals(et_new_pwd2.getText().toString())) {
-                    // Appel de la tâche async avec ses paramètres
+                    // Call the async task with parameters
                     tv_error.setText("");
                     new SignUpAsynchronious(LoginActivity.this).execute("pseudo", et_new_username.getText().toString(), "mdp", et_new_pwd1.getText().toString());
                 }
-                else{
-                    tv_error.setText("[PASSWORD NOT MATCHING]");
-                }
-            } catch (Exception e) {
-                tv_error.setText(e.getMessage());
+                else{ tv_error.setText("[PASSWORD NOT MATCHING]"); }
             }
+            catch (Exception e) { tv_error.setText(e.getMessage()); }
         }
     };
 
     public void make_invisble_or_visible_sign_up_screen(Boolean visible) {
         // Enregistrement
-        EditText et_new_username = (EditText) findViewById(R.id.et_new_username);
-        EditText et_new_pwd1 = (EditText) findViewById(R.id.et_new_pwd1);
-        EditText et_new_pwd2 = (EditText) findViewById(R.id.et_new_pwd2);
-        Button btn_new_sign_up = (Button) findViewById(R.id.btn_new_sign_up);
-        Button btn_cancel = (Button) findViewById(R.id.btn_cancel);
+        EditText et_new_username    = (EditText) findViewById(R.id.et_new_username);
+        EditText et_new_pwd1        = (EditText) findViewById(R.id.et_new_pwd1);
+        EditText et_new_pwd2        = (EditText) findViewById(R.id.et_new_pwd2);
+        Button btn_new_sign_up      = (Button) findViewById(R.id.btn_new_sign_up);
+        Button btn_cancel           = (Button) findViewById(R.id.btn_cancel);
 
         // Invisible
         if (!visible) {
-            et_new_username.setVisibility(View.GONE);
-            et_new_pwd1.setVisibility(View.GONE);
-            et_new_pwd2.setVisibility(View.GONE);
-            btn_new_sign_up.setVisibility(View.GONE);
-            btn_cancel.setVisibility(View.GONE);
+            et_new_username .setVisibility(View.GONE);
+            et_new_pwd1     .setVisibility(View.GONE);
+            et_new_pwd2     .setVisibility(View.GONE);
+            btn_new_sign_up .setVisibility(View.GONE);
+            btn_cancel      .setVisibility(View.GONE);
         }
         // Visible
         else {
-            et_new_username.setVisibility(VISIBLE);
-            et_new_pwd1.setVisibility(VISIBLE);
-            et_new_pwd2.setVisibility(VISIBLE);
-            btn_new_sign_up.setVisibility(VISIBLE);
-            btn_cancel.setVisibility(VISIBLE);
+            et_new_username .setVisibility(VISIBLE);
+            et_new_pwd1     .setVisibility(VISIBLE);
+            et_new_pwd2     .setVisibility(VISIBLE);
+            btn_new_sign_up .setVisibility(VISIBLE);
+            btn_cancel      .setVisibility(VISIBLE);
 
         }
     }

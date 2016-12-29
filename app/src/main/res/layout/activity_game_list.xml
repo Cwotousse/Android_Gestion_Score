@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="mousty.condorcet.be.gestion_score.be.mousty.intent.DisplayGameListActivity"><![CDATA[
+
+
+
+
+        android:layout_width="match_parent" android:layout_height="363dp"
+        android:id="@+id/tableLayoutGame"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/tv_error">
+
+
+
+
+
+    ]]>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_error"
+        android:layout_above="@+id/btn_ret"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
+        android:text="DISPLAY GAME LIST"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btn_previous"
+        android:layout_above="@+id/tv_error"
+        android:src="@drawable/previous"/>
+
+    <Button
+        android:text="Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_title"
+        android:layout_toEndOf="@+id/tv_title"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:id="@+id/btn_next"
+        android:layout_above="@+id/tv_error"
+        android:layout_below="@+id/tableLayout"
+        android:src="@drawable/next" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:id="@+id/tableLayout"
+        android:layout_marginTop="19dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/tv_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="GAME"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="35px"/>
+
+            <TextView
+                android:text="USERNAME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="150px" />
+
+            <TextView
+                android:text="BTN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="150px"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </TableRow>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:id="@+id/tableLayoutGame"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+        </TableLayout>
+
+    </TableLayout>
+
+    <Button
+        android:text="Return"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_ret"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Page : 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_page"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_alignBaseline="@+id/btn_previous"
+        android:layout_alignBottom="@+id/btn_previous"
+        android:layout_alignLeft="@+id/tv_title"
+        android:layout_alignStart="@+id/tv_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_previous"
+        android:layout_alignBottom="@+id/btn_previous"
+        android:layout_toRightOf="@+id/tv_page"
+        android:id="@+id/tv_totPages" />
+
+
+</RelativeLayout>

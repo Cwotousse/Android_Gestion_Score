@@ -18,6 +18,7 @@
         <activity android:name="be.mousty.intent.HomeActivity"></activity>
         <activity android:name="be.mousty.intent.AddScoreActivity"></activity>
         <activity android:name="be.mousty.intent.DisplayTopTenActivity"></activity>
+        <activity android:name="be.mousty.intent.DisplayGameListActivity"></activity>
     </application>
 
 </manifest>
