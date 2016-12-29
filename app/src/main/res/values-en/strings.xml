@@ -23,7 +23,7 @@
     <string name="title_add_Score">ADD SCORE</string>
     <string name="title_game_list">GAME LIST</string>
     <string name="title_home_screen">HOMESCREEN</string>
-    <string name="title_login">LOGIN</string>
+    <string name="title_login">CONNECTION</string>
     <string name="title_top_ten">TOP 10</string>
     <string name="title_user_list">USER LIST</string>
 </resources>

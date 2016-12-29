@@ -58,13 +58,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tv_title"
-        android:layout_toEndOf="@+id/tv_title"
         android:layout_marginLeft="33dp"
         android:layout_marginStart="33dp"
         android:id="@+id/btn_next"
         android:layout_above="@+id/tv_error"
         android:layout_below="@+id/tableLayout"
-        android:src="@drawable/next" />
+        android:src="@drawable/next"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TableLayout
         android:layout_width="match_parent"
