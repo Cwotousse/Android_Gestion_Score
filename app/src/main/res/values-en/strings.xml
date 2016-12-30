@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Score Management</string>
+    <string name="btn_add">ADD SCORE</string>
+    <string name="btn_cancel">CANCEL</string>
+    <string name="btn_connect">CONNECT</string>
+    <string name="btn_create">CREATE</string>
+    <string name="btn_display">DISPLAY</string>
+    <string name="btn_execute">EXECUTE</string>
+    <string name="btn_next">NEXT</string>
+    <string name="btn_previous">PREVIOUS</string>
+    <string name="btn_return">RETURN</string>
+    <string name="btn_sign_in">SIGN IN</string>
+    <string name="btn_sign_up">SIGN UP</string>
+    <string name="et_game">GAME NAME</string>
+    <string name="et_login">MY LOGIN</string>
+    <string name="et_pwd">PASSWORD</string>
+    <string name="et_score">YOUR SCORE</string>
+    <string name="et_username">USERNAME</string>
+    <string name="game_name">GAME NAME</string>
+    <string name="loading">LOADING</string>
+    <string name="loading_wait">LOADING ... PLEASE WAIT</string>
+    <string name="title_add_Score">ADD SCORE</string>
+    <string name="title_game_list">GAME LIST</string>
+    <string name="title_home_screen">HOMESCREEN</string>
+    <string name="title_login">CONNECTION</string>
+    <string name="title_top_ten">TOP 10</string>
+    <string name="title_user_list">USER LIST</string>
+</resources>

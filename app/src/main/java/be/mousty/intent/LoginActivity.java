@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Enregistrement
-        Button btn_new_sign_up = (Button) findViewById(R.id.btn_new_sign_up);
-        Button btn_cancel = (Button) findViewById(R.id.btn_cancel);
+        Button btn_new_sign_up  = (Button) findViewById(R.id.btn_new_sign_up);
+        Button btn_cancel       = (Button) findViewById(R.id.btn_cancel);
 
         // Create new account
         btn_new_sign_up.setOnClickListener(sign_up);
@@ -59,22 +60,19 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void populate_connect(String res) {
+    public void populate_connect(ArrayList<String> res) {
         TextView tv_error = (TextView) findViewById(R.id.tv_error);
-        String color_code = "#9dc94f";
+        String color_code = "#ff0000"; // RED
 
-        if (!res.equals("OK")) {
-            tv_error.setText("[UNABLE TO CONNECT]" + res);
-            color_code = "#ff0000";
-        }
+        if (!res.get(0).equals("OK")) { tv_error.setText("[UNABLE TO CONNECT]" + res); }
         else{
             tv_error.setText("[CONNECT ESTABLISHED]");
-            EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-            EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-            // Si la connexion a fonctionné, on affiche le home screen
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            // POUR GARDER LA VARIABLE DE SESSION ACTIVEE
 
+            // If the connection is established, we start a new intent
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+
+            // The userid is transmitted
+            intent.putExtra("id_utilisateur", res.get(1).toString());
 
             startActivity(intent);
         }
@@ -92,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
             color_code = "#ff0000";
         }
         else{
-
             // On cache le formulaire
             make_invisble_or_visible_sign_up_screen(false);
             String id_user = res.get(1);
@@ -104,115 +101,62 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener check_connexion = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-            EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-            TextView tv_error = (TextView) findViewById(R.id.tv_error);
+            EditText et_login_name  = (EditText) findViewById(R.id.et_login_username);
+            EditText et_login_pwd   = (EditText) findViewById(R.id.et_login_pwd);
+            TextView tv_error       = (TextView) findViewById(R.id.tv_error);
             try {
-                // Appel de la tâche async avec ses paramètres
+                // Call the async task with parameters
                 tv_error.setText("");
                 new LoginAsynchronious(LoginActivity.this).execute("pseudo", et_login_name.getText().toString(), "mdp", et_login_pwd.getText().toString());
-            } catch (Exception e) {
-                tv_error.setText(e.getMessage());
-            }
+            } catch (Exception e) { tv_error.setText(e.getMessage()); }
         }
     };
 
     private View.OnClickListener sign_up = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            EditText et_new_username = (EditText) findViewById(R.id.et_new_username);
-            EditText et_new_pwd1 = (EditText) findViewById(R.id.et_new_pwd1);
-            EditText et_new_pwd2 = (EditText) findViewById(R.id.et_new_pwd2);
-            TextView tv_error = (TextView) findViewById(R.id.tv_error);
+            EditText et_new_username    = (EditText) findViewById(R.id.et_new_username);
+            EditText et_new_pwd1        = (EditText) findViewById(R.id.et_new_pwd1);
+            EditText et_new_pwd2        = (EditText) findViewById(R.id.et_new_pwd2);
+            TextView tv_error           = (TextView) findViewById(R.id.tv_error);
             try {
                 if(et_new_pwd1.getText().toString().equals(et_new_pwd2.getText().toString())) {
-                    // Appel de la tâche async avec ses paramètres
+                    // Call the async task with parameters
                     tv_error.setText("");
                     new SignUpAsynchronious(LoginActivity.this).execute("pseudo", et_new_username.getText().toString(), "mdp", et_new_pwd1.getText().toString());
                 }
-                else{
-                    tv_error.setText("[PASSWORD NOT MATCHING]");
-                }
-            } catch (Exception e) {
-                tv_error.setText(e.getMessage());
+                else{ tv_error.setText("[PASSWORD NOT MATCHING]"); }
             }
+            catch (Exception e) { tv_error.setText(e.getMessage()); }
         }
     };
 
-    public void save_data(View view){
-        EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-        EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-
-        // Only the application can access it
-        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("pseudo", et_login_name.getText().toString());
-        editor.putString("mdp", et_login_pwd.getText().toString());
-
-        editor.apply();
-    }
-
-    public void display_saved_Data(View view){
-        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String pseudo = sharedPreferences.getString("pseudo","");
-        String mdp = sharedPreferences.getString("mdp","");
-    }
-
     public void make_invisble_or_visible_sign_up_screen(Boolean visible) {
         // Enregistrement
-        EditText et_new_username = (EditText) findViewById(R.id.et_new_username);
-        EditText et_new_pwd1 = (EditText) findViewById(R.id.et_new_pwd1);
-        EditText et_new_pwd2 = (EditText) findViewById(R.id.et_new_pwd2);
-        Button btn_new_sign_up = (Button) findViewById(R.id.btn_new_sign_up);
-        Button btn_cancel = (Button) findViewById(R.id.btn_cancel);
-
-        // Connexion
-        /*EditText et_login_name = (EditText) findViewById(R.id.et_login_username);
-        EditText et_login_pwd = (EditText) findViewById(R.id.et_login_pwd);
-        Button btn_connect = (Button) findViewById(R.id.btn_connect);
-        Button btn_sign_up = (Button) findViewById(R.id.btn_sign_up);*/
+        EditText et_new_username    = (EditText) findViewById(R.id.et_new_username);
+        EditText et_new_pwd1        = (EditText) findViewById(R.id.et_new_pwd1);
+        EditText et_new_pwd2        = (EditText) findViewById(R.id.et_new_pwd2);
+        Button btn_new_sign_up      = (Button) findViewById(R.id.btn_new_sign_up);
+        Button btn_cancel           = (Button) findViewById(R.id.btn_cancel);
+        ImageView iv_mojojojo2      = (ImageView) findViewById(R.id.iv_mojojojo2);
 
         // Invisible
         if (!visible) {
-            et_new_username.setVisibility(View.GONE);
-            et_new_pwd1.setVisibility(View.GONE);
-            et_new_pwd2.setVisibility(View.GONE);
-            btn_new_sign_up.setVisibility(View.GONE);
-            btn_cancel.setVisibility(View.GONE);
-
-            /*et_login_name.setVisibility(VISIBLE);
-            et_login_pwd.setVisibility(VISIBLE);
-            btn_connect.setVisibility(VISIBLE);
-            btn_sign_up.setVisibility(VISIBLE);*/
+            et_new_username .setVisibility(View.GONE);
+            et_new_pwd1     .setVisibility(View.GONE);
+            et_new_pwd2     .setVisibility(View.GONE);
+            btn_new_sign_up .setVisibility(View.GONE);
+            btn_cancel      .setVisibility(View.GONE);
+            iv_mojojojo2    .setVisibility(VISIBLE);
         }
         // Visible
         else {
-            et_new_username.setVisibility(VISIBLE);
-            et_new_pwd1.setVisibility(VISIBLE);
-            et_new_pwd2.setVisibility(VISIBLE);
-            btn_new_sign_up.setVisibility(VISIBLE);
-            btn_cancel.setVisibility(VISIBLE);
-
-            /*et_login_name.setVisibility(View.GONE);
-            et_login_pwd.setVisibility(View.GONE);
-            btn_connect.setVisibility(View.GONE);
-            btn_sign_up.setVisibility(View.GONE);*/
+            et_new_username .setVisibility(VISIBLE);
+            et_new_pwd1     .setVisibility(VISIBLE);
+            et_new_pwd2     .setVisibility(VISIBLE);
+            btn_new_sign_up .setVisibility(VISIBLE);
+            btn_cancel      .setVisibility(VISIBLE);
+            iv_mojojojo2    .setVisibility(View.GONE);
         }
     }
-
-        /*private View.OnClickListener toggle_visibility = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            try {
-                EditText et_new_username = (EditText) findViewById(R.id.et_new_username);
-                // S'il est déjà visible on le cache, sinon on l'affiche.
-                boolean toggle_visibility = et_new_username.getVisibility() == VISIBLE ? false : true;
-                make_invisble_or_visible_sign_up_screen(toggle_visibility);
-            } catch (Exception e) {
-                TextView tv_error = (TextView) findViewById(R.id.tv_error);
-                tv_error.setText(e.getMessage());
-            }
-        }
-    };*/
 }

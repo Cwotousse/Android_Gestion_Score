@@ -25,16 +25,22 @@ import mousty.condorcet.be.gestion_score.R;
 
 public class AddScoreActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
+    String id_utilisateur;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_score);
 
+        // Session
+        setID(savedInstanceState);
+        //TextView tv_logs    = (TextView) findViewById(R.id.tv_logs);
+        //tv_logs             .setText(id_utilisateur);
+
         //Import the game list
         new GameListAsynchronious(AddScoreActivity.this).execute();
 
         // BUTTON
-        Button btn_Add_new_Score = (Button) findViewById(R.id.btn_Add_new_Score);
+        Button btn_Add_new_Score = (Button) findViewById(R.id.btn_display_top);
         btn_Add_new_Score.setOnClickListener(add__new_score);
 
         Button btn_return = (Button) findViewById(R.id.btn_ret);
@@ -57,12 +63,11 @@ public class AddScoreActivity extends AppCompatActivity {
             AutoCompleteTextView actv_jeu = (AutoCompleteTextView) findViewById(R.id.game_title);
             TextView tv_error = (TextView) findViewById(R.id.tv_error);
             try {
-                // Appel de la tâche async avec ses paramètres
+                // Call the async task with parameters
                 tv_error.setText("");
-                new AddScoreAsynchronious(AddScoreActivity.this).execute(et_new_score.getText().toString(), actv_jeu.getText().toString());
-            } catch (Exception e) {
-                tv_error.setText(e.getMessage());
+                new AddScoreAsynchronious(AddScoreActivity.this).execute(et_new_score.getText().toString(), actv_jeu.getText().toString(), id_utilisateur);
             }
+            catch (Exception e) { tv_error.setText(e.getMessage()); }
         }
     };
 
@@ -86,12 +91,6 @@ public class AddScoreActivity extends AppCompatActivity {
             res.addAll(hs);
 
             //Create Array Adapter
-            String debug ="";
-            for(String e : res){
-                debug += e + "";
-            }
-            tv_error.setText(debug);
-
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice, res);
 
             //Find TextView control
@@ -116,5 +115,17 @@ public class AddScoreActivity extends AppCompatActivity {
             setResult(RESULT_OK, return_intent);
             finish();
         }
+    }
+
+    public void setID(Bundle savedInstanceState){
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) { id_utilisateur= null; }
+            else { id_utilisateur= extras.getString("id_utilisateur"); }
+        }
+        else { id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur"); }
+
+        //TextView tv_error = (TextView)findViewById(R.id.tv_logs);
+        //tv_error.setText(id_utilisateur);
     }
 }

@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import be.mousty.intent.AddScoreActivity;
+import be.mousty.intent.DisplayTopTenActivity;
 import be.mousty.intent.LoginActivity;
 
 //http://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
@@ -19,11 +20,11 @@ import be.mousty.intent.LoginActivity;
 // X -> Recu en paramètre  du doInBackground
 // Y -> non utilisé, pour le onProgressUpdate
 // Z -> Résultat, placé dans onPostExecute
-public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<String>> {
-    private AddScoreActivity screen = null;
+public class GameListTopSearchAsynchronious extends AsyncTask<Void, Void, ArrayList<String>> {
+    private DisplayTopTenActivity screen = null;
 
     ProgressDialog progress;
-    public GameListAsynchronious(AddScoreActivity s) {
+    public GameListTopSearchAsynchronious(DisplayTopTenActivity s) {
         screen = s;
         progress = new ProgressDialog(screen);
     }
@@ -31,7 +32,7 @@ public class GameListAsynchronious extends AsyncTask<Void, Void, ArrayList<Strin
     @Override protected void onPreExecute() {
         // Prétraitement de l'appel
         progress.setTitle("WAIT PLEASE");
-        progress.setMessage("WE ARE SEARCHING OUR DATA...");
+        progress.setMessage("WE ARE CURRENTLY RETREIVING DATA REQUESTED...");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.show();
     }

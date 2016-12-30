@@ -1,5 +1,6 @@
 package be.mousty.asychronious;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 import java.io.BufferedInputStream;
@@ -15,6 +16,7 @@ import java.net.URLEncoder;
 import java.util.Scanner;
 
 import be.mousty.intent.AddScoreActivity;
+import be.mousty.intent.LoginActivity;
 
 //http://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
 // On remplace les XYZ par le type objet nécéssaire
@@ -24,24 +26,30 @@ import be.mousty.intent.AddScoreActivity;
 public class AddScoreAsynchronious extends AsyncTask<String, Void, String> {
     private AddScoreActivity screen = null;
 
-    /*@Override protected void onPreExecute() {
-        // Prétraitement de l'appel
-    }
-
-    @Override protected void onProgressUpdate(Y... progress) {
-        // Gestion de l'avancement de la tâche
-    }*/
-
+    ProgressDialog progress;
     public AddScoreAsynchronious(AddScoreActivity s) {
         screen = s;
+        progress = new ProgressDialog(screen);
     }
+
+    @Override protected void onPreExecute() {
+        // Prétraitement de l'appel
+        progress.setTitle("WAIT PLEASE");
+        progress.setMessage("WE ARE ADDING YOUR SCORE...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+    }
+
+    /*@Override protected void onProgressUpdate(Y... progress) {
+        // Gestion de l'avancement de la tâche
+    }*/
 
     @Override
     protected String doInBackground(String... params) {
         String error_message = "";
         try {
             // WATCH OUT PARAM INVERTED
-            URL url = new URL("http://www.lesqua.16mb.com/projet_android/ajouter_score.php?jeu=" + params[1] + "&score=" + params[0]);
+            URL url = new URL("http://www.lesqua.16mb.com/projet_android/ajouter_score.php?jeu=" + params[1] + "&score=" + params[0] +"&id_utilisateur=" + params[2]);
 
             // instantier l'objet grâce à la méthode "openConnection()"
             HttpURLConnection connection;
@@ -71,10 +79,10 @@ public class AddScoreAsynchronious extends AsyncTask<String, Void, String> {
                         case "0":
                             error_message = "OK";
                             break;
-                        case "100":
+                        case "110":
                             error_message = "problème $_GET['score']";
                             break;
-                        case "110":
+                        case "100":
                             error_message = "problème $_GET['jeu']";
                             break;
                         case "500":
@@ -121,6 +129,7 @@ public class AddScoreAsynchronious extends AsyncTask<String, Void, String> {
         // Callback
         // Renvoie les informations dans la fonction populate du mainactivity
         try {
+            if(progress.isShowing()) { progress.dismiss(); }
             screen.populate_add_score(result);
         } catch (Exception e) {
             e.getStackTrace();
