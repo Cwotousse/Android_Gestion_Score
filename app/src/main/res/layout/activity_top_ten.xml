@@ -12,27 +12,19 @@
     tools:context="mousty.condorcet.be.gestion_score.be.mousty.intent.DisplayTopTenActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/title_top_ten" />
-
     <Button
         android:text="@string/btn_return"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/buttonDefault"
         android:id="@+id/btn_ret"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="@string/btn_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/buttonDefault"
         android:id="@+id/btn_display_top"
         android:layout_below="@+id/game_title"
         android:layout_alignParentLeft="true"
@@ -49,24 +41,23 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <AutoCompleteTextView
-        android:id="@+id/game_title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/tv_title"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="@string/game_name">
-    </AutoCompleteTextView>
-
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/wv_top_ten"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="120dp"
         android:layout_above="@+id/tv_error">
 
     </WebView>
+
+    <AutoCompleteTextView
+        android:id="@+id/game_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/game_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </AutoCompleteTextView>
 
 </RelativeLayout>

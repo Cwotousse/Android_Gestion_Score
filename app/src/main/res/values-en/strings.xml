@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SCORE MANAGEMENT</string>
+    <string name="app_name">Score Management</string>
     <string name="btn_add">ADD SCORE</string>
     <string name="btn_cancel">CANCEL</string>
     <string name="btn_connect">CONNECT</string>

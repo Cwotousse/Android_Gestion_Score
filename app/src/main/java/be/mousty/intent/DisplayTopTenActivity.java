@@ -161,7 +161,7 @@ public class DisplayTopTenActivity extends AppCompatActivity {
                             "}\n" +
                             "\n" +
                             "table.GeneratedTable thead {\n" +
-                            "background-color:#99FF00;\n" +
+                            "background-color:#00b2ff;\n" +
                             "}\n" +
                             "</style>\n" +
                             "\n" +

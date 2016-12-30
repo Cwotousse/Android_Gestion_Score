@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GESTION DE SCORE</string>
+    <string name="app_name">Gestion de Score</string>
     <string name="btn_add">AJOUTER SCORE</string>
     <string name="btn_cancel">ANNULER</string>
     <string name="btn_connect">CONNECTER</string>

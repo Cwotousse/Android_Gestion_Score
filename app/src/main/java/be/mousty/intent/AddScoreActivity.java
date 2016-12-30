@@ -33,8 +33,8 @@ public class AddScoreActivity extends AppCompatActivity {
 
         // Session
         setID(savedInstanceState);
-        TextView tv_logs    = (TextView) findViewById(R.id.tv_logs);
-        tv_logs             .setText(id_utilisateur);
+        //TextView tv_logs    = (TextView) findViewById(R.id.tv_logs);
+        //tv_logs             .setText(id_utilisateur);
 
         //Import the game list
         new GameListAsynchronious(AddScoreActivity.this).execute();
@@ -125,7 +125,7 @@ public class AddScoreActivity extends AppCompatActivity {
         }
         else { id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur"); }
 
-        TextView tv_error = (TextView)findViewById(R.id.tv_logs);
-        tv_error.setText(id_utilisateur);
+        //TextView tv_error = (TextView)findViewById(R.id.tv_logs);
+        //tv_error.setText(id_utilisateur);
     }
 }

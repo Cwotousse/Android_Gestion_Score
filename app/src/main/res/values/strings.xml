@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SCORE MANAGEMENT</string>
+    <string name="app_name">Score Management</string>
     <string name="game_name">GAME NAME</string>
 
     <string name="title_login"      >LOGIN</string>

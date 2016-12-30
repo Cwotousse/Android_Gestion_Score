@@ -19,25 +19,23 @@
 
         <Button
             android:text="@string/btn_create"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/buttonDefault"
             android:id="@+id/btn_sign_up"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+             />
 
         <Button
             android:text="@string/btn_connect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/buttonDefault"
             android:id="@+id/btn_connect"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/etDefault"
             android:inputType="textPersonName"
             android:id="@+id/et_login_username"
             android:hint="@string/et_login"
@@ -49,8 +47,7 @@
             android:layout_alignEnd="@+id/et_login_pwd" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/etDefault"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/et_login_pwd"
@@ -58,14 +55,6 @@
             android:layout_above="@+id/btn_sign_up"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="14dp" />
-
-        <TextView
-            android:text="@string/title_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/tv_title_login" />
 
     </RelativeLayout>
 
@@ -78,8 +67,7 @@
 
         <Button
             android:text="@string/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/buttonDefault"
             android:id="@+id/btn_cancel"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
@@ -88,8 +76,7 @@
 
         <Button
             android:text="@string/btn_sign_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/buttonDefault"
             android:id="@+id/btn_new_sign_up"
             android:layout_alignBaseline="@+id/btn_cancel"
             android:layout_alignBottom="@+id/btn_cancel"
@@ -97,8 +84,7 @@
             android:layout_alignParentEnd="true" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/etDefault"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/et_new_pwd2"
@@ -108,8 +94,7 @@
             android:layout_centerHorizontal="true" />
 
         <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            style="@style/etDefault"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_new_pwd1"
@@ -119,8 +104,7 @@
             android:layout_alignStart="@+id/et_new_pwd2" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/etDefault"
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/et_new_username"

@@ -15,11 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="be.mousty.intent.HomeActivity"></activity>
-        <activity android:name="be.mousty.intent.AddScoreActivity"></activity>
-        <activity android:name="be.mousty.intent.DisplayTopTenActivity"></activity>
-        <activity android:name="be.mousty.intent.DisplayGameListActivity"></activity>
-        <activity android:name="be.mousty.intent.DisplayUserListActivity"></activity>
+        <activity android:name="be.mousty.intent.HomeActivity"              android:label="@string/title_home_screen"></activity>
+        <activity android:name="be.mousty.intent.AddScoreActivity"          android:label="@string/title_add_Score"></activity>
+        <activity android:name="be.mousty.intent.DisplayTopTenActivity"     android:label="@string/title_top_ten"></activity>
+        <activity android:name="be.mousty.intent.DisplayGameListActivity"   android:label="@string/title_game_list"></activity>
+        <activity android:name="be.mousty.intent.DisplayUserListActivity"   android:label="@string/title_user_list"></activity>
     </application>
 
 </manifest>

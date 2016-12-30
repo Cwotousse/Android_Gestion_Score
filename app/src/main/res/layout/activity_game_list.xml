@@ -34,47 +34,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_title"
-        android:text="@string/title_game_list"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="@string/btn_previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/btn_previous"
-        android:layout_above="@+id/tv_error"
-        android:src="@drawable/previous"/>
-
-    <Button
-        android:text="@string/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/tv_title"
-        android:layout_marginLeft="33dp"
-        android:layout_marginStart="33dp"
-        android:id="@+id/btn_next"
-        android:layout_above="@+id/tv_error"
-        android:layout_below="@+id/tableLayout"
-        android:src="@drawable/next"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <TableLayout
         android:layout_width="match_parent"
         android:id="@+id/tableLayout"
-        android:layout_marginTop="19dp"
         android:layout_height="300dp"
-        android:layout_below="@+id/tv_title"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_totPages"
+        android:layout_above="@+id/btn_next"
+        android:layout_marginBottom="40dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -112,32 +80,46 @@
 
     <Button
         android:text="@string/btn_return"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/buttonDefault"
         android:id="@+id/btn_ret"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_totPages"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Page : 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_page"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
-        android:layout_alignBaseline="@+id/btn_previous"
-        android:layout_alignBottom="@+id/btn_previous"
-        android:layout_alignLeft="@+id/tv_title"
-        android:layout_alignStart="@+id/tv_title" />
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/tv_totPages"
+        android:layout_toStartOf="@+id/tv_totPages" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_previous"
-        android:layout_alignBottom="@+id/btn_previous"
-        android:layout_toRightOf="@+id/tv_page"
-        android:id="@+id/tv_totPages" />
+    <Button
+        android:text="@string/btn_next"
+        style="@style/buttonNextPrev"
+        android:id="@+id/btn_next"
+        android:layout_above="@+id/tv_error"
+        android:layout_alignRight="@+id/tv_totPages"
+        android:layout_alignEnd="@+id/tv_totPages" />
+
+    <Button
+        android:text="@string/btn_previous"
+        style="@style/buttonNextPrev"
+        android:id="@+id/btn_previous"
+        android:layout_above="@+id/tv_error"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

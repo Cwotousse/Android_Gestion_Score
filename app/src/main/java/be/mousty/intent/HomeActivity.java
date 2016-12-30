@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         else {id_utilisateur= (String) savedInstanceState.getSerializable("id_utilisateur"); }
 
-        TextView tv_error = (TextView)findViewById(R.id.tv_error);
-        tv_error.setText(id_utilisateur);
+        //TextView tv_error = (TextView)findViewById(R.id.tv_error);
+        //tv_error.setText(id_utilisateur);
     }
 }
